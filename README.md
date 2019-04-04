@@ -2,6 +2,11 @@
 
 This program will take a C source file and convert any characters it can into digraphs or trigraphs. This is purely for fun or as a quick way to add some obfuscation to your code.
 
+## What are digraphs?
+
+Digraphs and trigraphs are sequences ot 2 (digraphs) or 3 (trigraphs) characters found in source code that are treated as if they were one character.
+Take the character "{". Its digraphs equivalent is "<%" and its trigraph equivalent is "??<".
+
 ## How to Use
 
 To compile use:
@@ -23,7 +28,7 @@ Note: When using -t, you need to compile the newly created file using the -trigr
 
 ## Examples
 
-Here is some test code:
+Here is some arbitrary code:
 ```
 #include <stdio.h>
 int main(int argc, char *argv[]) {
