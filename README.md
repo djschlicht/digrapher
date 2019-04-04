@@ -9,10 +9,13 @@ To compile use:
 make digrapher
 ```
 
-Available options:
+To run type:
 ```
--i <input filename>: select input file
--o <output filename>: select output file
+./digrapher -i <input filename> -o <output filename> -flag
+```
+
+Available flags:
+```
 -d: convert to digraphs
 -t: convert to trigraphs
 ```
