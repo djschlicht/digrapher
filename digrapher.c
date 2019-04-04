@@ -8,8 +8,8 @@ void digraph(FILE *in, FILE *out) {
 	 * if it matches a digraph char, replace it with digraph
 	 * otherwise copy it to output file
 	 */
-	int in_quotes = 0; 
-	char c = getc(in);
+	int in_quotes = 0; //if a possible change is part of a string, ignore it
+	int c = getc(in);
 	while(c != EOF) {
 		if(in_quotes == 0) {
 			switch(c) {
@@ -42,6 +42,9 @@ void digraph(FILE *in, FILE *out) {
 		}
 		c = getc(in);
 	}
+	
+	if(!feof(in))
+		printf("Something went wrong. EOF not reached.\n");
 }
 
 void trigraph(FILE *in, FILE *out) {
@@ -50,8 +53,8 @@ void trigraph(FILE *in, FILE *out) {
 	 * if it matches a trigraph char, replace it with trigraph
 	 * otherwise copy it to output file
 	 */
-	int in_quotes = 0; 
-	char c = getc(in);
+	int in_quotes = 0;  //if a possible change is part of a string, ignore it
+	int c = getc(in);
 	while(c != EOF) {
 		if(in_quotes == 0) {
 			switch(c) {
@@ -96,6 +99,8 @@ void trigraph(FILE *in, FILE *out) {
 		}
 		c = getc(in);
 	}
+	if(!feof(in))
+		printf("Something went wrong. EOF not reached.\n");
 }
 
 /* This program reads a c file and converts any characters in it 
@@ -104,7 +109,6 @@ void trigraph(FILE *in, FILE *out) {
 int main(int argc, char* argv[]){
 
 	int option_idx = 0;
-
 	char* infile;
 	char* outfile;
 	int flag; // 1 for digraph, 2 for trigraph
@@ -114,11 +118,11 @@ int main(int argc, char* argv[]){
 		switch (option_idx) {
 				case 'i': //input file name
 					infile = optarg;
-					printf("Input filename is: %s\n", infile);
+					printf("Input filename: %s\n", infile);
 					break;
 				case 'o': //output file name
 					outfile = optarg;
-					printf("Output filename is: %s\n", outfile);
+					printf("Output filename: %s\n", outfile);
 					break;
 				case 'd': //digraph flag
 					flag = 1;
@@ -144,7 +148,7 @@ int main(int argc, char* argv[]){
 	/* create output file */
 	FILE *out;
 	if((out = fopen(outfile, "w")) == NULL) {
-		printf("Could not create output file.\n");
+		printf("Error opening output file.\n");
 		return 1;
 	}
 
@@ -157,7 +161,7 @@ int main(int argc, char* argv[]){
 			trigraph(in, out);
 			break;
 		default:
-			printf("Error.\n");
+			printf("Error. Please invoke with -d or -t.\n");
 			return 1;
 	}
 	
@@ -165,5 +169,6 @@ int main(int argc, char* argv[]){
 	fclose(in);
 	fclose(out);
 	
+	printf("Conversion successful.\n");
 	return 0;
 }
