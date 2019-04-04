@@ -43,8 +43,10 @@ void digraph(FILE *in, FILE *out) {
 		c = getc(in);
 	}
 	
-	if(!feof(in))
+	if(!feof(in)) {
 		printf("Something went wrong. EOF not reached.\n");
+		exit(1);
+	}
 }
 
 void trigraph(FILE *in, FILE *out) {
@@ -99,8 +101,10 @@ void trigraph(FILE *in, FILE *out) {
 		}
 		c = getc(in);
 	}
-	if(!feof(in))
+	if(!feof(in)) {
 		printf("Something went wrong. EOF not reached.\n");
+		exit(1);
+	}
 }
 
 /* This program reads a c file and converts any characters in it 
