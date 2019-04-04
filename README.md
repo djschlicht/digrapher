@@ -5,7 +5,7 @@ This program will take a C source file and convert any characters it can into di
 ## What are digraphs?
 
 Digraphs and trigraphs are sequences ot 2 (digraphs) or 3 (trigraphs) characters found in source code that are treated as if they were one character.
-Take the character "{". Its digraphs equivalent is "<%" and its trigraph equivalent is "??<".
+Take the character "{". Its digraph equivalent is "<%" and its trigraph equivalent is "??<".
 
 ## How to Use
 
