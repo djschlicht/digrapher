@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <getopt.h>
 #include <string.h>
 
 void digraph(FILE *in, FILE *out) {
@@ -103,28 +103,35 @@ void trigraph(FILE *in, FILE *out) {
  */
 int main(int argc, char* argv[]){
 
+	int option_idx = 0;
+
 	char* infile;
 	char* outfile;
-	char* flag;
-	
-	/* check program invocation */
-	if(argc != 4) { 
-		printf("Correct usage: ./digrapher <input file> <output file> flag\n");
-		printf("Flags:\n-d: digraph substitution\n-t: trigraph substitution\n");
-		return 1;
-	}
-	else {
-		infile = argv[1];	
-		outfile = argv[2];
-		flag = argv[3];
-	}
+	int flag; // 1 for digraph, 2 for trigraph
 
-	/* check that file is of correct type (ends in .c) */
-	//TODO: also check for .h files
-	char* ext = strrchr(infile, '.');
-	if(ext == NULL || strcmp(ext+1, "c")) {
-		printf("Argument must be a '.c' filetype.\n");
-		return 1;
+	/* parse command line args using getopt */
+	while((option_idx = getopt(argc, argv, "i:o:td")) != -1) {
+		switch (option_idx) {
+				case 'i': //input file name
+					infile = optarg;
+					printf("Input filename is: %s\n", infile);
+					break;
+				case 'o': //output file name
+					outfile = optarg;
+					printf("Output filename is: %s\n", outfile);
+					break;
+				case 'd': //digraph flag
+					flag = 1;
+					printf("Digraph flag selected.\n");
+					break;
+				case 't': //trigraph flag
+					flag = 2;
+					printf("Trigraph flag selected.\n");
+					break;
+				default:
+					printf("Option incorrect.\n");
+					return 1;
+		}		
 	}
 
 	/* check input file exists */
@@ -142,13 +149,16 @@ int main(int argc, char* argv[]){
 	}
 
 	/* check flag and either use digraph or trigraph */
-	if(!strcmp(flag, "-d")) {
-		digraph(in, out);
-	} if(!strcmp(flag, "-t")) {
-		trigraph(in, out);
-	} else {
-		printf("Unknown or missing flag.\n");
-		printf("Use -d for digraph substitution or -t for trigraph substitution.\n");
+	switch(flag) {
+		case 1:
+			digraph(in, out);
+			break;
+		case 2:
+			trigraph(in, out);
+			break;
+		default:
+			printf("Error.\n");
+			return 1;
 	}
 	
 	/* close files */
