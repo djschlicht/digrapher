@@ -8,10 +8,11 @@ void digraph(FILE *in, FILE *out) {
 	 * if it matches a digraph char, replace it with digraph
 	 * otherwise copy it to output file
 	 */
-	int in_quotes = 0; //if a possible change is part of a string, ignore it
+	int in_double_quotes = 0; //if a possible change is part of a string, ignore it
+	int in_single_quotes = 0; //if a possible change is in single quotes, ignore it
 	int c = getc(in);
 	while(c != EOF) {
-		if(in_quotes == 0) {
+		if(in_double_quotes == 0 && in_single_quotes == 0) {
 			switch(c) {
 				case '[':
 					fputs("<:", out);
@@ -29,7 +30,11 @@ void digraph(FILE *in, FILE *out) {
 					fputs("%:", out);
 					break;
 				case '"':
-					in_quotes = 1;
+					in_double_quotes = 1;
+					putc(c, out);
+					break;
+				case '\'':
+					in_single_quotes = 1;
 					putc(c, out);
 					break;
 				default:
@@ -38,7 +43,8 @@ void digraph(FILE *in, FILE *out) {
 		}
 		else {
 			putc(c, out);
-			if(c == '"') in_quotes = 0;
+			if(c == '"') in_double_quotes = 0;
+			if(c == '\'') in_single_quotes = 0;
 		}
 		c = getc(in);
 	}
@@ -55,10 +61,11 @@ void trigraph(FILE *in, FILE *out) {
 	 * if it matches a trigraph char, replace it with trigraph
 	 * otherwise copy it to output file
 	 */
-	int in_quotes = 0;  //if a possible change is part of a string, ignore it
+	int in_double_quotes = 0;  //if a possible change is part of a string, ignore it
+	int in_single_quotes = 0;
 	int c = getc(in);
 	while(c != EOF) {
-		if(in_quotes == 0) {
+		if(in_double_quotes == 0 && in_single_quotes == 0) {
 			switch(c) {
 				case '[':
 					fputs("??(", out);
@@ -88,7 +95,11 @@ void trigraph(FILE *in, FILE *out) {
 					fputs("??-", out);
 					break;
 				case '"':
-					in_quotes = 1;
+					in_double_quotes = 1;
+					putc(c, out);
+					break;
+				case '\'':
+					in_single_quotes = 1;
 					putc(c, out);
 					break;
 				default:
@@ -97,7 +108,8 @@ void trigraph(FILE *in, FILE *out) {
 		}
 		else {
 			putc(c, out);
-			if(c == '"') in_quotes = 0;
+			if(c == '"') in_double_quotes = 0;
+			if(c == '\'') in_single_quotes = 0;
 		}
 		c = getc(in);
 	}
@@ -108,9 +120,9 @@ void trigraph(FILE *in, FILE *out) {
 }
 
 /* This program reads a c file and converts any characters in it 
- * to their equivalent digraphs.
+ * to their equivalent digraphs or trigraphs
  */
-int main(int argc, char* argv[]){
+int main(int argc, char *argv[]){
 
 	int option_idx = 0;
 	char* infile;
