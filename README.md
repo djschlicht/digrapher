@@ -19,6 +19,7 @@ Available flags:
 -d: convert to digraphs
 -t: convert to trigraphs
 ```
+Note: When using -t, you need to compile the newly created file using the -trigraphs flag.
 
 ## Authors
 
