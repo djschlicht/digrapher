@@ -1,6 +1,6 @@
 # Digrapher
 
-This program will take a C source file and convert any characters it can into digraphs or trigraphs. This is purely for fun or as a quick way to add some obsfuscation to your code.
+This program will take a C source file and convert any characters it can into digraphs or trigraphs. This is purely for fun or as a quick way to add some obfuscation to your code.
 
 ## How to Use
 
