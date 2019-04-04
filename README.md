@@ -1,25 +1,20 @@
 # Digrapher
 
-This program will take any C source file and convert any characters it can into digraphs or trigraphs. This is purely for fun or as a quick way to add some obsfuscation to your code.
-
-## How to Compile
-
-Download digrapher.c and compile it with GCC by typing:
-```
-gcc -o digrapher digrapher.c
-```
+This program will take a C source file and convert any characters it can into digraphs or trigraphs. This is purely for fun or as a quick way to add some obsfuscation to your code.
 
 ## How to Use
 
-Once compiled run the program by typing:
+To compile use:
 ```
-./digrapher <input filename> <output filename> <flag>
+make digrapher
 ```
 
-Available flags are:
+Available options:
 ```
--t: convert with trigraphs
--d: convert with digraphs
+-i <input filename>: select input file
+-o <output filename>: select output file
+-d: convert to digraphs
+-t: convert to trigraphs
 ```
 
 ## Authors
