@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <getopt.h>
-#include <string.h>
+#include <stdlib.h>
 
 void digraph(FILE *in, FILE *out) {
 	
